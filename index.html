@@ -1,0 +1,548 @@
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>旋转-魔方</title>
+    <style>
+        .container {
+          width: 400px;
+          height: 300px;
+          float: left;
+          position: relative;
+          margin: 10px;
+          border: 1px solid transparent;
+          perspective: 1200px;
+        }
+        .cube {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          animation: spinCube 8s infinite ease-in-out;
+          transform-style: preserve-3d;
+          transform: translateZ( -100px );
+        }
+        @keyframes spinCube {
+          0% { 
+            transform: translateZ( -100px ) rotateX(   0deg ) rotateY(   0deg ); 
+            }
+          100% {
+            transform: translateZ( -100px ) rotateX( 360deg ) rotateY( 360deg ); 
+          }
+        }
+
+        .side {
+         display: block;
+         position: absolute;
+         width: 196px;
+         height: 196px;
+         border: 2px solid #fff;
+         line-height: 196px;
+         font-size: 120px;
+         font-weight: bold;
+         color: white;
+         text-align: center;
+        }
+
+        .cube.backface-visibility-visible .side {
+          backface-visibility: visible;
+        }
+        .cube.backface-visibility-hidden .side {
+          backface-visibility: hidden;
+        }
+
+        .cube .front  { background: hsla(   0, 100%, 50%, 0.7 ); }
+        .cube .back   { background: hsla(  60, 100%, 50%, 0.7 ); }
+        .cube .right  { background: hsla( 120, 100%, 50%, 0.7 ); }
+        .cube .left   { background: hsla( 180, 100%, 50%, 0.7 ); }
+        .cube .top    { background: hsla( 240, 100%, 50%, 0.7 ); }
+        .cube .bottom { background: hsla( 300, 100%, 50%, 0.7 ); }
+
+        .cube .front  {
+          transform: translateZ( 100px );
+        }
+        .cube .back {
+          transform: rotateX( -180deg ) translateZ( 100px );
+        }
+        .cube .right {
+          transform: rotateY(   90deg ) translateZ( 100px );
+        }
+        .cube .left {
+          transform: rotateY(  -90deg ) translateZ( 100px );
+        }
+        .cube .top {
+          transform: rotateX(   90deg ) translateZ( 100px );
+        }
+        .cube .bottom {
+          transform: rotateX(  -90deg ) translateZ( 100px );
+        }
+        .hidden {
+            display: none;
+        }
+        @keyframes an {
+          0% { 
+            transform: translateX(200px) translateZ(-280px) rotateX(   0deg ); 
+            }
+          100% {
+            transform: translateX(200px) translateY(0px) translateZ(-80px) rotateX(  90deg ); 
+          }
+        }
+        @keyframes bn {
+          0% { 
+            transform: translateY(-100px) translateX(200px) translateZ(-280px) rotateX(   0deg ); 
+            }
+          100% {
+            transform: translateY(0px) translateX(200px) translateZ(-180px) rotateX(  90deg ); 
+          }
+        }
+        @keyframes cn {
+          0% { 
+            transform: translateY(-200px) translateX(200px) translateZ(-280px) rotateX(   0deg ); 
+            }
+          100% {
+            transform: translateY(0px) translateX(200px) translateZ(-280px) rotateX(  90deg ); 
+          }
+        }
+        @keyframes ah {
+          0% { 
+            transform: translateX(200px) translateZ(-180px) rotateX(   0deg ); 
+            }
+          100% {
+            transform: translateY(-100px) translateX(200px) translateZ(-80px) rotateX(  90deg ); 
+          }
+        }
+        @keyframes bh {
+          0% { 
+            transform: translateY(-100px) translateX(200px) translateZ(-180px) rotateX(   0deg ); 
+            }
+          100% {
+            transform: translateY(-100px) translateX(200px) translateZ(-180px) rotateX(  90deg ); 
+          }
+        }
+        @keyframes ch {
+          0% { 
+            transform: translateY(-200px) translateX(200px) translateZ(-180px) rotateX(   0deg ); 
+            }
+          100% {
+            transform: translateY(-100px) translateX(200px) translateZ(-280px) rotateX(  90deg ); 
+          }
+        }
+        @keyframes ay {
+          0% { 
+            transform: translateX(200px) translateZ(-80px) rotateX(   0deg ); 
+            }
+          100% {
+            transform: translateY(-200px) translateX(200px) translateZ(-80px) rotateX(  90deg ); 
+          }
+        }
+        @keyframes by {
+          0% { 
+            transform: translateY(-100px) translateX(200px) translateZ(-80px) rotateX(   0deg ); 
+            }
+          100% {
+            transform: translateY(-200px) translateX(200px) translateZ(-180px) rotateX(  90deg ); 
+          }
+        }
+        @keyframes cy {
+          0% { 
+            transform: translateY(-200px) translateX(200px) translateZ(-80px) rotateX(   0deg ); 
+            }
+          100% {
+            transform: translateY(-200px) translateX(200px) translateZ(-280px) rotateX(  90deg ); 
+          }
+        }
+        .house {
+            position: relative;
+            perspective: 1200px;
+        }
+        .box {
+            position: absolute;
+            top: 360px;
+            width: 100px;
+            height: 100px;
+            margin: 0;
+            padding: 0;
+            transform: translateZ(-80px);
+            transform-style: preserve-3d;
+            animation-duration: 8s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+        .box li {
+            position: absolute;
+            width: 98px;
+            height: 98px;
+            line-height: 100px;
+            font-size: 36px;
+            padding: 0;
+            border: 1px solid #000;
+            margin: 0;
+            text-align: center;
+            background: #fff;
+            color: #fff;
+            list-style: none;
+            backface-visibility: hidden;
+            opacity: .2;
+        }
+        .box .one {
+            background: hsla(   0, 100%, 50%, 0.7 );
+            transform: translateZ(50px); 
+        }
+        .box .two {
+            background: hsla(  60, 100%, 50%, 0.7 );
+            transform: rotateX(180deg) translateZ(50px); 
+        }
+        .box .three {
+            background: hsla( 120, 100%, 50%, 0.7 );
+            transform: rotateY(90deg) translateZ(50px); 
+        }
+        .box .four {
+            background: hsla( 180, 100%, 50%, 0.7 );
+            transform: rotateY(-90deg) translateZ(50px); 
+        }
+        .box .five {
+            background: hsla( 240, 100%, 50%, 0.7 );
+            transform: rotateX(90deg) translateZ(50px); 
+        }
+        .box .six {
+            background: hsla( 300, 100%, 50%, 0.7 );
+            transform: rotateX(-90deg) translateZ(50px); 
+        }
+        .a9 {
+            transform: translateX(200px) translateZ(-280px);
+            animation-name: an;
+        }
+        .a8 {
+            transform: translateX(200px) translateZ(-180px);
+            animation-name: ah;
+        }
+        .a7 {
+            transform: translateX(200px) translateZ(-80px);
+            animation-name: ay;
+        }
+        .a6 {
+            transform: translateX(100px) translateZ(-280px);
+        }
+        .a5 {
+            transform: translateX(100px) translateZ(-180px);
+        }
+        .a4 {
+            transform: translateX(100px) translateZ(-80px);
+        }
+        .a3 {
+            transform: translateZ(-280px);
+        }
+        .a2 {
+            transform: translateZ(-180px);
+        }
+        .a1 {
+            transform: translateZ(-80px);
+        }
+        .b9 {
+            transform: translateY(-100px) translateX(200px) translateZ(-280px);
+            animation-name: bn;
+        }
+        .b8 {
+            transform: translateY(-100px) translateX(200px) translateZ(-180px);
+            animation-name: bh;
+        }
+        .b7 {
+            transform: translateY(-100px) translateX(200px) translateZ(-80px);
+            animation-name: by;
+        }
+        .b6 {
+            transform: translateY(-100px) translateX(100px) translateZ(-280px);
+        }
+        .b5 {
+            transform: translateY(-100px) translateX(100px) translateZ(-180px);
+        }
+        .b4 {
+            transform: translateY(-100px) translateX(100px) translateZ(-80px);
+        }
+        .b3 {
+            transform: translateY(-100px) translateZ(-280px);
+        }
+        .b2 {
+            transform: translateY(-100px) translateZ(-180px);
+        }
+        .b1 {
+            transform: translateY(-100px) translateZ(-80px);
+        }
+        .c9 {
+            transform: translateY(-200px) translateX(200px) translateZ(-280px);
+            animation-name: cn;
+        }
+        .c8 {
+            transform: translateY(-200px) translateX(200px) translateZ(-180px);
+            animation-name: ch;
+        }
+        .c7 {
+            transform: translateY(-200px) translateX(200px) translateZ(-80px);
+            animation-name: cy;
+        }
+        .c6 {
+            transform: translateY(-200px) translateX(100px) translateZ(-280px);
+        }
+        .c5 {
+            transform: translateY(-200px) translateX(100px) translateZ(-180px);
+        }
+        .c4 {
+            transform: translateY(-200px) translateX(100px) translateZ(-80px);
+        }
+        .c3 {
+            transform: translateY(-200px) translateZ(-280px);
+        }
+        .c2 {
+            transform: translateY(-200px) translateZ(-180px);
+        }
+        .c1 {
+            transform: translateY(-200px) translateZ(-80px);
+        }
+    </style>
+</head>
+<body>
+    <h3><a href="https://www.cnblogs.com/shenzikun1314/p/6390181.html">启发自shenzikun1314</a></h3>
+    <div class="container">
+    </div>  
+    <div class="container">
+        <h3>backface-visibility:visible</h3>
+        <div class="cube backface-visibility-visible">
+            <div class="side front">1</div>
+            <div class="side back">2</div>
+            <div class="side right">3</div>
+            <div class="side left">4</div>
+            <div class="side top">5</div>
+            <div class="side bottom">6</div>
+        </div>
+    </div>  
+
+    <div class="container">
+        <h3>backface-visibility:hidden</h3>
+        <div class="cube backface-visibility-hidden">
+            <div class="side front">1</div>
+            <div class="side back">2</div>
+            <div class="side right">3</div>
+            <div class="side left">4</div>
+            <div class="side top">5</div>
+            <div class="side bottom">6</div>
+        </div>
+    </div>
+    <div class="house">
+        <ul class="box a3">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box a2">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box a1">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box a6">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box a5">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box a4">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box a9">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box a8">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box a7">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box b3">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box b2">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box b1">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box b6">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box b5">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box b4">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box b9">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box b8">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box b7">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box c3">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box c2">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box c1">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box c6">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box c5">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box c4">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box c9">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box c8">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+        <ul class="box c7">
+            <li class="one">one</li>
+            <li class="two">two</li>
+            <li class="three">three</li>
+            <li class="four">four</li>
+            <li class="five">five</li>
+            <li class="six">six</li>
+        </ul>
+    </div>
+</body>
+</html>
